@@ -1,6 +1,5 @@
 import { Await, useLoaderData } from "@remix-run/react";
-import { Suspense } from "react";
-import { Text } from "@shopify/polaris";
+import { CSSProperties, Suspense } from "react";
 
 export function loader() {
   const data = new Promise((r) => setTimeout(r, 2000)).then(
@@ -13,7 +12,13 @@ export default function Index() {
   const { data } = useLoaderData<typeof loader>();
   return (
     <>
-      <Text as={"p"}>Rendering without app provider</Text>
+      <a href={"/working"} style={buttonStyles}>
+        To Working
+      </a>
+      <a href={"/broken"} style={buttonStyles}>
+        To Broken
+      </a>
+      <br />
       <SuspenseComponent data={data} />
     </>
   );
@@ -26,3 +31,12 @@ export function SuspenseComponent(props: { data: Promise<string> }) {
     </Suspense>
   );
 }
+
+export const buttonStyles = {
+  padding: "1px 6px",
+  margin: "12px",
+  color: "buttontext",
+  backgroundColor: "buttonface",
+  textDecoration: "none",
+  borderRadius: "3px",
+} as CSSProperties;

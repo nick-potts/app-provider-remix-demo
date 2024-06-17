@@ -1,6 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
-import { AppProvider, Text } from "@shopify/polaris";
-import { SuspenseComponent } from "~/routes/working";
+import { AppProvider } from "@shopify/polaris";
+import { buttonStyles, SuspenseComponent } from "~/routes/working";
 
 export function loader() {
   const data = new Promise((r) => setTimeout(r, 2000)).then(
@@ -14,7 +14,13 @@ export default function Index() {
 
   return (
     <>
-      <Text as={"p"}>Rendering without app provider</Text>
+      <a href={"/working"} style={buttonStyles}>
+        To Working
+      </a>
+      <a href={"/broken"} style={buttonStyles}>
+        To Broken
+      </a>
+      <br />
       <AppProvider i18n={{}}>
         <SuspenseComponent data={data} />
       </AppProvider>
